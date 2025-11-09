@@ -36,7 +36,7 @@ jobs:
             parallelism-mode: ${{ steps.runwright-action.outputs.parallelism-mode }}
         steps:
             - name: Get runwright parameters
-              uses: PramodKumarYadav/runwright@main
+              uses: xn0-MM/runwright@main
               id: runwright-action
               with:
                   total-run-time-in-mins: ${{ inputs.total-run-time-in-mins }}
