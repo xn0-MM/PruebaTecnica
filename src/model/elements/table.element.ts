@@ -25,7 +25,7 @@ export class Table extends BaseElement {
     }
 
     async getHeaderMessage(): Promise<string> {
-        const headerCell = this.thead.locator('th').first();
+        const headerCell = this.thead
         return (await headerCell.innerText()).trim();
     }
 

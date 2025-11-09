@@ -34,6 +34,7 @@ export class CustomerActions extends BaseActions {
                 await input.fill(value);
             } else {
                 await input.click();
+                await input.locator.blur();
             }
 
         }
