@@ -1,13 +1,13 @@
-name: Regression PT Izertis
+name: Regression Prueba tecnica plawright
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+    # push:
+    #     branches: [main]
+    # pull_request:
+    #     branches: [main]
     schedule:
-        - cron: '0 2 * * *' # 🕒 Ejecuta todos los días a las 3:00 AM hora española (2:00 UTC)
-    workflow_dispatch: # Permite lanzarlo manualmente desde GitHub
+        - cron: '0 2 * * *'
+    workflow_dispatch:
 
 jobs:
     test:
