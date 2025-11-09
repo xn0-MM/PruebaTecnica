@@ -24,7 +24,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : 2,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI ?
-    [['html']] :
+    [['html'], ['github']] :
     [['list'],
     ['html'],
     ['monocart-reporter',
