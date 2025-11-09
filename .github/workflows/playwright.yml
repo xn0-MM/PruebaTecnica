@@ -26,7 +26,6 @@ on:
                 options:
                     - 'true'
                     - 'false'
-
 jobs:
     runwright:
         runs-on: ubuntu-latest
