@@ -79,21 +79,21 @@ jobs:
               run: npx playwright test --shard="$SHARD_INDEX/$TOTAL_SHARDS"
 
             - name: Upload Report Blob
-              if: always()
+              if: ${{ !cancelled() }}
               uses: actions/upload-artifact@v4
               with:
-                  name: test-report-${{ matrix.shard-index }}
+                  name: blob-report-${{ matrix.shard-index }}
                   path: blob-report
 
     merge-reports:
-        if: ${{ always() && cancelled() == false && needs.test.result != 'skipped' }}
+        if: ${{ !cancelled() }}
         needs:
             - test
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
 
-            - uses: actions/setup-node@v4
+            - uses: actions/setup-node@v5
               with:
                   node-version: 24
 
@@ -103,12 +103,12 @@ jobs:
             - name: Download All Shard Reports
               uses: actions/download-artifact@v4
               with:
-                  path: blob-reports
-                  pattern: test-report-*
+                  path: all-blob-reports
+                  pattern: blob-report-*
                   merge-multiple: true
 
             - name: Merge to HTML Report
-              run: npx playwright merge-reports --reporter html ./blob-reports
+              run: npx playwright merge-reports --reporter html ./all-blob-reports
 
             - name: Fail merge job if any test job failed
               run: |
