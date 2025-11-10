@@ -23,7 +23,7 @@ jobs:
             - name: Get Total Number of Tests
               id: test-count
               run: |
-                  TEST_LIST_OUTPUT=$(npx test --list)
+                  TEST_LIST_OUTPUT=$(npx playwright test --list)
                   TOTAL_TESTS=$(echo "$TEST_LIST_OUTPUT" | grep 'Total:' | awk '{print $2}')
                   echo "TOTAL_TESTS=$TOTAL_TESTS" >> "$GITHUB_ENV"
 
