@@ -79,7 +79,7 @@ jobs:
               run: npx playwright test --shard="$SHARD_INDEX/$TOTAL_SHARDS"
 
             - name: Upload Report Blob
-              if: always()
+              if: ${{ !cancelled() }}
               uses: actions/upload-artifact@v4
               with:
                   name: blob-report-${{ matrix.shard-index }}
@@ -90,9 +90,9 @@ jobs:
         needs: test
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
 
-            - uses: actions/setup-node@v4
+            - uses: actions/setup-node@v5
               with:
                   node-version: 24
 
