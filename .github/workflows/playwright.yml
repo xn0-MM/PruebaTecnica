@@ -110,12 +110,9 @@ jobs:
               run: npx playwright merge-reports --reporter html ./all-blob-reports
 
             - name: Upload static files as artifact
-              id: deployment
               uses: actions/upload-pages-artifact@v3
               with:
-                  name: html-report--attempt-${{ github.run_attempt }}
                   path: playwright-report
-                  retention-days: 90
 
     deploy-report:
         if: ${{ always() && !cancelled() }}
