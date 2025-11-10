@@ -13,10 +13,17 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+
+            - name: Install dependencies
+              run: npm ci
+
             - name: Get Total Number of Tests
               id: test-count
               run: |
-                  TEST_LIST_OUTPUT=$(npm test --list)
+                  TEST_LIST_OUTPUT=$(npx test --list)
                   TOTAL_TESTS=$(echo "$TEST_LIST_OUTPUT" | grep 'Total:' | awk '{print $2}')
                   echo "TOTAL_TESTS=$TOTAL_TESTS" >> "$GITHUB_ENV"
 
@@ -118,7 +125,6 @@ jobs:
                   path: playwright-report
                   retention-days: 90
 
-                  
     deploy-report:
         needs:
             - 'merge-reports'
