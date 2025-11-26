@@ -115,7 +115,7 @@ jobs:
                   path: playwright-report
 
     deploy-report:
-        if: ${{ always() && !cancelled() }}
+        if: ${{needs.merge-reports.result == 'success' && !cancelled() }}
         needs: merge-reports
         permissions:
             pages: write
@@ -130,12 +130,12 @@ jobs:
               uses: actions/deploy-pages@v4.0.5
 
     cleanup:
-        if: ${{ success() && needs.test.result == 'success' }}
-        needs: [merge-reports]
+        if: ${{ success() && needs.deploy-report.result == 'success' }}
+        needs: [deploy-report]
         runs-on: ubuntu-latest
         steps:
             - uses: geekyeggo/delete-artifact@v2
               with:
                   name: |
-                      test-report-*
-                      tests-build
+                      blob-report-*
+
