@@ -17,7 +17,7 @@ export class NavigationActions extends BaseActions {
         await this.page.goto(url);
     }
 
-    async clickOption(option: keyof NavBarComponent): Promise<void> {
+    async goToByMenu(option: keyof NavBarComponent): Promise<void> {
         const navOption = this.managerPage.navBar[option];
         await (navOption as Locator).click();
     }

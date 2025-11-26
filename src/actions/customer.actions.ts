@@ -36,7 +36,6 @@ export class CustomerActions extends BaseActions {
                 await input.click();
                 await input.locator.blur();
             }
-
         }
     }
 
@@ -76,52 +75,26 @@ export class CustomerActions extends BaseActions {
     }
 
     async getFormData(): Promise<ICustomerData> {
-        const name = await this.newCustomerPage.form.nameInput.getValue();
-
         const maleChecked = await this.newCustomerPage.form.maleRadio.isChecked();
         const femaleChecked = await this.newCustomerPage.form.femaleRadio.isChecked();
-        const gender = maleChecked ? 'male' : femaleChecked ? 'female' : '';
-
-        const dateOfBirth = await this.newCustomerPage.form.dateOfBirthInput.getValue();
-        const address = await this.newCustomerPage.form.addressInput.getValue();
-        const city = await this.newCustomerPage.form.cityInput.getValue();
-        const state = await this.newCustomerPage.form.stateInput.getValue();
-        const pin = await this.newCustomerPage.form.pinInput.getValue();
-        const phoneNumber = await this.newCustomerPage.form.phoneNumberInput.getValue();
-        const email = await this.newCustomerPage.form.emailInput.getValue();
-        const password = await this.newCustomerPage.form.passwordInput.getValue();
 
         return {
             id: '',
-            name,
-            dateOfBirth,
-            gender,
-            address,
-            city,
-            state,
-            pin,
-            phoneNumber,
-            email,
-            password,
+            name: await this.newCustomerPage.form.nameInput.getValue(),
+            dateOfBirth: await this.newCustomerPage.form.dateOfBirthInput.getValue(),
+            gender: maleChecked ? 'male' : femaleChecked ? 'female' : '',
+            address: await this.newCustomerPage.form.addressInput.getValue(),
+            city: await this.newCustomerPage.form.cityInput.getValue(),
+            state: await this.newCustomerPage.form.stateInput.getValue(),
+            pin: await this.newCustomerPage.form.pinInput.getValue(),
+            phoneNumber: await this.newCustomerPage.form.phoneNumberInput.getValue(),
+            email: await this.newCustomerPage.form.emailInput.getValue(),
+            password: await this.newCustomerPage.form.passwordInput.getValue()
         };
     }
-    async getRegisteredFormData(customer: ICustomerData): Promise<ICustomerData> {
-        const entries = await this.dataCustomerPage.table.getTableData();
 
-        const customerData: ICustomerData = {
-            id: entries['Customer ID'],
-            name: entries['Customer Name'] ?? '',
-            gender: entries['Gender'] ?? '',
-            dateOfBirth: entries['Birthdate'] ?? '',
-            address: entries['Address'] ?? '',
-            city: entries['City'] ?? '',
-            state: entries['State'] ?? '',
-            pin: entries['Pin'] ?? '',
-            phoneNumber: entries['Mobile No.'] ?? '',
-            email: entries['Email'] ?? '',
-            password: customer.password,
-        };
-        return customerData;
+    async getRegisteredFormData(): Promise<ICustomerData> {
+        return await this.dataCustomerPage.table.getTableData();
     }
 
     async submitForm() {
