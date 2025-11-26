@@ -38,11 +38,7 @@ export class ManagerActions extends BaseActions {
     }
 
     async getUserAndPassword(): Promise<ICredentials> {
-        const data = await this.dataManagerPage.table.getTableData();
-        return {
-            id: data['User ID :'] || '',
-            password: data['Password :'] || '',
-        };
+        return await this.dataManagerPage.table.getTableData();
     }
 }
 

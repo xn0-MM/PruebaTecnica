@@ -2,6 +2,7 @@ import { ICustomerData } from '@/model/agents/customer.agent';
 import { test, expect } from '@/fixtures/actions.fixture';
 import { formatScenarios, blankFieldScenarios } from '@/testdata/scenarios.data';
 import { test as createdUserTest } from '@/fixtures/create.customer.fixture';
+import { da } from '@faker-js/faker/.';
 
 test.describe('Feature: Nuevo Cliente', () => {
     test('Scenario: Crear un nuevo cliente con datos válidos ', {
@@ -33,13 +34,18 @@ test.describe('Feature: Nuevo Cliente', () => {
 
         await test.step('Then los datos del cliente aparecen en la tabla', async () => {
 
-            const registeredCustomerData = await customerActions.getRegisteredFormData(data);
-            const customerDataUpdated: ICustomerData = {
+            const regCustomer = await customerActions.getRegisteredFormData();
+            const rCustomer = {
+                ...regCustomer,
+                password: data.password
+            }
+
+            const customer: ICustomerData = {
                 ...data,
-                id: registeredCustomerData.id
+                id: regCustomer.id
             };
 
-            expect(registeredCustomerData).toStrictEqual(customerDataUpdated);
+            expect(rCustomer).toStrictEqual(customer);
         });
 
         await test.step('And se muestra lel mensaje "Customer Registered Successfully!!!"', async () => {
@@ -76,7 +82,7 @@ test('Scenario: Verificar el funcionamiento del bottón Reset en el formulario d
     });
 
     await test.step('And rellena el formulario con datos válidos', async () => {
-        await customerActions.fillForm(customerFactory.valid());
+        await customerActions.fillForm(customerFactory.valid().toJSON());
     });
 
     await test.step('And pulsa el botón "RESET"', async () => {
@@ -172,7 +178,6 @@ test.describe('Feature: Validaciones formulario nuevo cliente', () => {
             await navigationActions.goTo(routes.newCustomerPage);
         });
 
-
         await test.step('el formulario no contiene ningún dato', async () => {
             const customerData = await customerActions.getFormData();
             const normalicedData = { ...customerData, gender: '' };
@@ -193,7 +198,7 @@ test.describe('Feature: Validaciones formulario nuevo cliente', () => {
     });
 });
 
-test('Scenario: No se puede crear un client con fecha futura', {
+test('Scenario: No se puede crear un cliente con fecha futura', {
     tag: ['@regresion', '@ci'],
 }, async ({
     navigationActions,
