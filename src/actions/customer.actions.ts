@@ -64,16 +64,6 @@ export class CustomerActions extends BaseActions {
         return text.trim();
     }
 
-    async getDialogMessage(): Promise<string> {
-        return new Promise((resolve) => {
-            this.page.once('dialog', async (dialog) => {
-                const message = dialog.message();
-                await dialog.accept();
-                resolve(message);
-            });
-        });
-    }
-
     async getFormData(): Promise<ICustomerData> {
         const maleChecked = await this.newCustomerPage.form.maleRadio.isChecked();
         const femaleChecked = await this.newCustomerPage.form.femaleRadio.isChecked();

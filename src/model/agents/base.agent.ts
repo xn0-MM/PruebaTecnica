@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 
 export interface ICredentials {
     id: string;
@@ -35,6 +36,10 @@ export abstract class BaseAgent implements ICredentials {
 
     getCredentials(): ICredentials {
         return { id: this._id, password: this._password };
+    }
+
+    getInvalidCredentials(): ICredentials {
+        return { id: faker.internet.username(), password: faker.internet.password() };
     }
 
     toJSON(): ICredentials {

@@ -11,7 +11,6 @@ type ActionsFixtures = {
     loginActions: LoginActions;
     navigationActions: NavigationActions;
     customerActions: CustomerActions;
-    registeredCustomerActions: CustomerActions;
     managerActions: ManagerActions;
     routes: IRoutes;
     manager: ManagerAgent;

@@ -2,7 +2,6 @@ import { ICustomerData } from '@/model/agents/customer.agent';
 import { test, expect } from '@/fixtures/actions.fixture';
 import { formatScenarios, blankFieldScenarios } from '@/testdata/scenarios.data';
 import { test as createdUserTest } from '@/fixtures/create.customer.fixture';
-import { da } from '@faker-js/faker/.';
 
 test.describe('Feature: Nuevo Cliente', () => {
     test('Scenario: Crear un nuevo cliente con datos válidos ', {
@@ -192,7 +191,7 @@ test.describe('Feature: Validaciones formulario nuevo cliente', () => {
             ]);
         });
 
-        await test.step('Then se muestran se muestra un dialog con el mensaje "please fill all fields"', async () => {
+        await test.step('Then se muestra un dialog con el mensaje "please fill all fields"', async () => {
             expect(dialogMessage).toBe('please fill all fields');
         });
     });
