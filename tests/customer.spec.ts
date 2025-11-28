@@ -192,7 +192,7 @@ test.describe('Feature: Validaciones formulario nuevo cliente', () => {
             ]);
         });
 
-        await test.step('Then se muestran se muestra un dialog con el mensaje "please fill all fields"', async () => {
+        await test.step('Then se muestra un dialog con el mensaje "please fill all fields"', async () => {
             expect(dialogMessage).toBe('please fill all fields');
         });
     });
